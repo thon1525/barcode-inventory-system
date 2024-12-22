@@ -43,7 +43,7 @@
                             <div class="card-body">
 
                                 <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title">All Category </h5>
+                                    <h5 class="card-title">All Category </h5>
 
                                     {{-- <a href="{{url('product/grid_view')}}" class="btn btn-success ">Grid View <i class="bi bi-grid-3x2"></i></a> --}}
 
@@ -61,7 +61,7 @@
                                     <tbody>
                                         @foreach ($category as $cat)
 
-                                        <tr  class="align_tr">
+                                        <tr class="align_tr">
                                             <th scope="row">{{$cat->catid}}</th>
 
                                             <td>{{$cat->category_name}}</td>
@@ -70,11 +70,11 @@
                                                 <div class="d-flex gap-2">
 
 
-                                                    <button class="btn btn-primary" type="button"  data-bs-toggle="modal" data-bs-target="#ModalEdit{{$cat->catid}}">Edit</button>
-                                                                                            
+                                                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#ModalEdit{{$cat->catid}}">Edit</button>
+
                                                     <form action="{{route('category.edit')}}" method="post">
                                                         {{-- @method('update') --}}
-                                                    @csrf
+                                                        @csrf
                                                         <div class="modal fade" id="ModalEdit{{$cat->catid}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">
@@ -142,30 +142,7 @@
                                             </td>
                                         </tr>
 
-                                        <!-- 
-                                    <div class="modal fade" id="ModalDelete" tabindex="-1" role="dialog"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">{{__('Product Delete')}}</h4>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal body">Are you sure you want to delete
-                                                    <b></b>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn gray btn-outline-secondary"
-                                                        data-dismiss="modal">{{__('Cancel')}}</button>
-                                                    <button type="button"
-                                                        class="btn btn-outline-danger">{{__('Delete')}}</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
+
 
                                         @endforeach
 

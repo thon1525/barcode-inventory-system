@@ -77,7 +77,7 @@
                                                  @endif
                                             </td>
                                             <td>{{$itemexport->namepro_import}}</td>
-                                            <td>{{$itemexport->proprice_import}}</td>
+                                            <td>{{$itemexport->proprice_import}}$</td>
                                             <td>{{$itemexport->progty_import}}</td>
                                             <td>{{$itemexport->category_name}}</td>
                                             <td>{{$itemexport->supplier_name}}</td>

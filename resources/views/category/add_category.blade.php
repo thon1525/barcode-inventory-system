@@ -34,7 +34,7 @@
                                     @csrf
                                     <div class="col-md-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="floatingName" name="category_name" placeholder="Product Name">
+                                            <input type="text" class="form-control" id="floatingName" name="category_name" placeholder="Category Name">
                                             <label for="floatingName">Category Name</label>
                                         </div>
                                     </div>

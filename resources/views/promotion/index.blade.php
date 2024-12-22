@@ -133,7 +133,7 @@
                             <h5 class="card-title">All promotions </h5>
 
                             {{-- <a href="{{url('product/grid_view')}}" class="btn btn-success ">Grid View <i
-                                    class="bi bi-grid-3x2"></i></a> --}}
+                                class="bi bi-grid-3x2"></i></a> --}}
 
                         </div>
                         <table class="table table-borderless datatable">
@@ -196,7 +196,7 @@
                                                                             Name</label>
                                                                     </div>
                                                                 </div>
-                                                                 <div class="col-md-12 mt-md-3">
+                                                                <div class="col-md-12 mt-md-3">
                                                                     <div class="form-floating">
                                                                         <input name="description" required type="text"
                                                                             class="form-control"
@@ -354,14 +354,14 @@
                 </div>
 
                 <script>
-                    $('table[data-form="deleteForm"]').on('click', '.form-delete', function (e) {
+                    $('table[data-form="deleteForm"]').on('click', '.form-delete', function(e) {
                         e.preventDefault();
                         var $form = $(this);
                         $('#confirm').modal({
-                            backdrop: 'static',
-                            keyboard: false
-                        })
-                            .on('click', '#delete-btn', function () {
+                                backdrop: 'static',
+                                keyboard: false
+                            })
+                            .on('click', '#delete-btn', function() {
                                 $form.submit();
                             });
                     });

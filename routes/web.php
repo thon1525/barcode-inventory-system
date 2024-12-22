@@ -10,13 +10,12 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\exportsetpro;
 use App\Http\Controllers\stockController;
 use App\Http\Controllers\taxController;
 use App\Http\Controllers\importproductController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\listtaxproductController;
-use App\Http\Controllers\ScrapeproController;
+use App\Http\Controllers\CostProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,11 +27,12 @@ use App\Http\Controllers\ScrapeproController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/logout', [ProfileController::class, 'logout'])->name('logout');
+
+ Route::get('/logout', [ProfileController::class, 'logout'])->name('user.logout');
 
 Route::get('/', function () {
     return view('/auth/login');
-})->name('login');
+})->name('user.login');
 
 Route::get('/register', function () {
     return view('/auth/register');
@@ -43,13 +43,13 @@ Route::get('/dashboard', function () {
 //create customer in dashboard
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/index', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/index', [DashboardController::class, 'index'])->name('home.dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/profile/view', [ProfileController::class, 'profile_store'])->name('profile.store');
-
+    Route::post('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
     Route::get('/profile/view', [ProfileController::class, 'profile'])->name('profile.view');
 
 
@@ -69,7 +69,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/product/add_product', [ProductController::class, 'add_product']);
     Route::delete('/product/delete_product/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
     Route::get('/product/view_product/{product_code}', [ProductController::class, 'view_product'])->name('product.view_product');
-    // Route::post('/product/grid_view/edit', [ProductController::class, 'grid_view_edit'])->name('product.grid.edit');
+    //Route::post('/product/grid_view/edit', [ProductController::class, 'grid_view_edit'])->name('product.grid.edit');
 
 
     Route::get('/pos', [POSController::class, 'index'])->name('pos.index');
@@ -118,10 +118,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
      Route::get('/import_product/add_product/view_product/update/{id_edit}',[importproductController::class,'funviewediteproduct'])->name('export.product.view_product');
      Route::post('/import_product/add_product/view_product/update/import/product',[importproductController::class,'funimportupdatefunction'])->name('import.product.edit');
     // import product stock in for import
-    Route::get('/stock_in/manage_product_stock_in',[importproductController::class,'funstockin_import'])->name('list.stock.in.import');
+    // Route::get('/stock_in/manage_product_stock_in',[importproductController::class,'funstockin_import'])->name('list.stock.in.import');
     Route::post('/stock_in/manage_product_stock_in/update_stockin',[importproductController::class,'funstockin_import_update'])->name('list.stock.in.import.update');
     Route::delete('/stock_in/manage_product_stock_in/{id_stock_in_import}',[importproductController::class,'destroy'])->name('list.stock.in.import.delete');
     Route::post('/stock_in/manage_product_stock_in/update_stockin/view/edit/update',[importproductController::class,'funstockin_import_stockin_edit_update_all'])->name('list.stock.in.import.update.edit.stockin.update.all');
+
+    Route::get('/stock/{id}/add', [StockController::class, 'showAddStockForm'])->name('stock.add'); // Show add stock form
+    Route::post('/stock/{id}/add', [StockController::class, 'addStock'])->name('stock.store'); // Process stock addition
+
      //crud about coupons
     Route::get('/coupon/list', [CouponController::class, 'index'])->name('coupon.index');
     Route::post('/coupon', [CouponController::class, 'store'])->name('coupon.store');
@@ -140,11 +144,12 @@ Route::post('/add_producttax/insert_data_tax',[listtaxproductController::class,'
 Route::post('/add_producttax/insert_data_tax/product/insert',[listtaxproductController::class,'funlisttaxtodatabase'])->name('add.tax.product.insert.product.to.database');
 Route::get('/manage/product/view_tax',[listtaxproductController::class,'funshowtaxproduct'])->name('show.tax.product.view');
 // add new product scripper otherecommer
-Route::get('/view/see/show_data',[ScrapeproController::class,'scrapecommerces'])->name('view.ecommerce.online');
+
+Route::get('/cost-products', [CostProductController::class, 'index'])->name('cost.product.tax');
+Route::post('/cost-products/category', [CostProductController::class, 'selectProduCtcatgory'])->name('cost.product.tax.catgory');
+Route::post('/cost-products/product_id', [CostProductController::class, 'selectProduct'])->name('cost.product.tax.product');
+
 // add new product export for set data
-Route::get('/view/export/set_product',[exportsetpro::class,'funproduct_set'])->name('view.set.porduct.export');
-Route::post('/view/export/set_product/condition',[exportsetpro::class,'funproduct_condition'])->name('view.set.porduct.export.condition.data');
-Route::post('/view/export/set_product/condition/install/add',[exportsetpro::class,'funsellproduct'])->name('view.set.porduct.export.condition.data.sell.data');
 });
 require __DIR__ . '/auth.php';
 

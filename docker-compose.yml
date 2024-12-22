@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  # MySQL Database Service
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}        # Root password from .env file
+      MYSQL_DATABASE: ${DB_DATABASE}             # Database name
+      MYSQL_USER: ${DB_USERNAME}                 # Optional: additional MySQL user
+      MYSQL_PASSWORD: ${DB_PASSWORD}             # Optional: password for the additional user
+    ports:
+      - "3307:3306"                              # Mapping host port 3307 to container port 3306
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - app-network
+
+  # phpMyAdmin Service
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: db                               # MySQL service name to connect to
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}        # Ensure this matches the root password of MySQL
+    ports:
+      - "9090:80"
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  # Laravel Application Service (Optional)
+#   laravel:
+#     build:
+#       context: .                                 # Assuming Dockerfile in the same directory
+#     container_name: laravel_app
+#     environment:
+#       DB_CONNECTION: mysql
+#       DB_HOST: db
+#       DB_PORT: 3306
+#       DB_DATABASE: ${DB_DATABASE}
+#       DB_USERNAME: ${DB_USERNAME}
+#       DB_PASSWORD: ${DB_PASSWORD}
+#     ports:
+#       - "8000:8000"                              # Expose Laravel on port 8000
+#     volumes:
+#       - .:/var/www/html
+#     depends_on:
+#       - db
+#     networks:
+#       - app-network
+
+volumes:
+  db_data:
+
+networks:
+  app-network:
+    driver: bridge

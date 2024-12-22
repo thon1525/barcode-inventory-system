@@ -55,7 +55,7 @@
                                         <img src="{{url('upload/products/'.$product->product_img)}}" id="showAvatar" alt="Profile"class="card-img-top">
                                               @else
                                         <img src="{{url('upload/noimage.jpg') }}" alt="Profile"  id="showAvatar" class="card-img-top">
-                          
+
                                           @endif
                                         <div class="card-body">
                                           <h5 class="card-title">{{$product->product_name}}</h5>
@@ -65,17 +65,17 @@
                                         </div>
                                         <div class="d-flex grid_button justify-content-between align-items-center p-5">
 
-                                                                                            
-                                            <form action="{{route('product.view_product', $product->product_code)}}" method="get">
+
+                                            <form action="{{route('product.view_product', $product->id)}}"  method="get">
                                             @csrf
                                                 <button class="btn btn-primary" type="submit">Edit</button>
                                             </form>
-                                            <a href="{{url('stock_product')}}" class="btn btn-success">Stock in</a>
+                                            <!-- <a href="{{ route('stock.add', $product->id) }}" class="btn btn-success">Stock In</a> -->
 
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#ModalDelete{{$product->id}}">
                                                 Delete
                                             </button>
-                                            
+
                                             <form enctype="multipart/form-data" action="{{route('product.destroy', $product->id)}}" method="POST">
                                                 @method('delete')
                                                 @csrf
@@ -103,7 +103,7 @@
                                             </form>
                                         </div>
                                       </div><!-- End Card with an image on top -->
-                                      
+
                                     @endforeach
                                 </div>
                                 <!-- small modal -->

@@ -47,49 +47,39 @@ $('#categoryinput').unbind('keyup change input paste').bind('keyup change input 
     }
 });
 </script>
+
+
 <body>
+    <!-- Header -->
+    @include('partials.header')
 
-    <!-- ======= Header ======= -->
-    @include ('partials/header');
+    <!-- Sidebar -->
+    @include('partials.aside')
 
-    <!-- ======= Sidebar ======= -->
-    @include ('partials/aside');
     <main id="main" class="main">
-
         <div class="pagetitle">
             <h1>Add New Tax</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{url('index')}}">Home</a></li>
-                    <li class="breadcrumb-item active">Add new Tax</li>
+                    <li class="breadcrumb-item"><a href="{{ url('index') }}">Home</a></li>
+                    <li class="breadcrumb-item active">Add New Tax</li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
+        </div>
 
         <section class="section dashboard">
             <div class="row">
-
-                <!-- Left side columns -->
                 <div class="col-lg-12">
-                    <div class="row">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Add New Tax</h5>
-
-                                <!-- Floating Labels Form -->
-                                  {{-- <livewire:taxproduct /> --}}
-                                    @livewire('taxproduct')
-                              <!-- End floating Labels Form -->
-
-                            </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Add New Tax</h5>
+                            @livewire('taxproduct')
                         </div>
-
                     </div>
-                </div><!-- End Left side columns -->
-
-
+                </div>
             </div>
         </section>
+    </main>
 
-    </main><!-- End #main -->
-    @include ('partials/footer');
+    @include('partials.footer')
+</body>
